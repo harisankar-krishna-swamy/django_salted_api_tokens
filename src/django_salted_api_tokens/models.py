@@ -24,5 +24,5 @@ class ApiToken(models.Model):
         return f'{self.user}'
 
     class Meta:
-        verbose_name = 'User token'
-        verbose_name_plural = 'User tokens'
+        verbose_name = 'DSAT User token'
+        verbose_name_plural = 'DSAT User tokens'

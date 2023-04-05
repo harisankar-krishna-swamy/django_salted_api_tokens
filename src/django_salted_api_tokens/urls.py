@@ -9,6 +9,6 @@ urlpatterns = [
     path(
         'create-dsat/',
         CreateApiToken.as_view(),
-        name='django_salted_api_tokens:create-dsat',
+        name='create-dsat',
     ),
 ]

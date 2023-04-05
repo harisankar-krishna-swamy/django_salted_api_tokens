@@ -11,6 +11,7 @@ from tests.factories import ApiTokenUserFactory, test_password
 class TestViewCreateApiToken(TestCase):
     def setUp(self) -> None:
         self.user = ApiTokenUserFactory()
+        self.url_dsat = '/dsat/create-dsat/'
 
     def _assert_http_ok_token_reponse(self, response):
         self.assertEqual(
@@ -26,7 +27,7 @@ class TestViewCreateApiToken(TestCase):
 
     def test_view__create_api_token(self):
         client = APIClient(enforce_csrf_checks=True)
-        ep = reverse('vevde-accounts:create-api-token')
+        ep = self.url_dsat
         data = {'username': self.user.username, 'password': test_password}
         response = client.post(path=ep, data=data)
         self._assert_http_ok_token_reponse(response)
@@ -37,7 +38,7 @@ class TestViewCreateApiToken(TestCase):
 
         for i in range(1, settings.MAX_TOKENS_PER_USER + 1):
             client = APIClient(enforce_csrf_checks=True)
-            ep = reverse('vevde-accounts:create-api-token')
+            ep = self.url_dsat
             data = {'username': self.user.username, 'password': test_password}
             if i <= settings.MAX_TOKENS_PER_USER:
                 response = client.post(path=ep, data=data)
