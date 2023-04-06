@@ -59,6 +59,7 @@ urlpatterns = [
   ...
 ]
 ``` 
+Run `python manage.py migrate` to create model tables.
 # 4. Usage
 The url to obtain token will be available at `dsat/create-dsat/`.
 Example local url `http://127.0.0.1:8000/dsat/create-dsat/`
