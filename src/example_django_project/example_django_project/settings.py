@@ -140,6 +140,6 @@ REST_FRAMEWORK = {
     ],
 }
 # django_salted_tokens settings
-DEFAULT_TOKEN_LENGTH = 80
-MAX_TOKENS_PER_USER = 10
-TOKEN_HASHER_CLS = 'django.contrib.auth.hashers.PBKDF2PasswordHasher'
+DSAT_TOKEN_LENGTH = 80
+DSAT_MAX_TOKENS_PER_USER = 10
+DSAT_HASHLIB_ALGO = 'sha256'

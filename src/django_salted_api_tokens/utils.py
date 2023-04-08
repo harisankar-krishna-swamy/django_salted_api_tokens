@@ -1,20 +1,31 @@
+import hashlib
 import secrets
 
-from django.utils.module_loading import import_string
-
-from django_salted_api_tokens.settings import TOKEN_HASHER_CLS
-
-token_hasher_cls = import_string(TOKEN_HASHER_CLS)
+hashers = {
+    'sha512': hashlib.sha512,
+    'sha384': hashlib.sha384,
+    'sha256': hashlib.sha256,
+}
 
 
 def gen_token(n_chars=40):
     return secrets.token_hex(int(n_chars / 2))
 
 
-def hashed_secret(secret, hasher_algo=token_hasher_cls):
-    salt = secrets.token_hex(24)
-    return hasher_algo().encode(secret, salt)
+def hashed_secret(secret: str, algo: str, salt: str = None):
+    if not salt:
+        salt = secrets.token_hex(24)
+    hash_func = hashers.get(algo, None)
+    if not hash_func:
+        raise ValueError(
+            f'Unsupported hash algorithm {algo}. Check DSAT_HASHLIB_ALGO in settings.py'
+        )
+    m = hash_func()
+    m.update(f'{secret}_{salt}'.encode())
+    return f'{m.hexdigest()}${salt}${algo}'
 
 
-def verify_hashed_secret(secret, encoded, hasher_algo=token_hasher_cls):
-    return hasher_algo().verify(password=secret, encoded=encoded)
+def verify_hashed_secret(secret, encoded):
+    hash_orig, salt, algo = encoded.split('$')
+    hashed = hashed_secret(secret, algo, salt)
+    return encoded == hashed

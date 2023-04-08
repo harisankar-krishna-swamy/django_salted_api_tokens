@@ -11,21 +11,20 @@ https://github.com/harisankar-krishna-swamy/django_salted_api_tokens
 `pip install django_salted_api_tokens`
 
 # 3. Configuration
-* Add `DEFAULT_TOKEN_LENGTH` in `settings.py`  
+* Add `DSAT_TOKEN_LENGTH` in `settings.py`  
   Default: `80` Max length: `256`  
-* Add `MAX_TOKENS_PER_USER`  in `settings.py`. Maximum number of tokens allowed per user. 
+* Add `DSAT_MAX_TOKENS_PER_USER`  in `settings.py`. Maximum number of tokens allowed per user. 
   Subsequent requests for tokens will be rejected.  
   Default: `10`
-* Add `TOKEN_HASHER_CLS` in `settings.py` This should be a class that implements the interfaces of  Django's password  
-  hashers. [See Django doc](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-PASSWORD_HASHERS)  
-  
-  Default: `django.contrib.auth.hashers.PBKDF2PasswordHasher`
-
+* Add `DSAT_HASHLIB_ALGO` in `settings.py`. A string representing the hash algorithm from hashlib.  
+  Supported values are 'sha512', 'sha256', 'sha384'
+  Default: `sha512`
+* 
 Example
 ```python
-DEFAULT_TOKEN_LENGTH = 80
-MAX_TOKENS_PER_USER = 10
-TOKEN_HASHER_CLS = 'django.contrib.auth.hashers.PBKDF2PasswordHasher'
+DSAT_TOKEN_LENGTH = 80
+DSAT_MAX_TOKENS_PER_USER = 10
+DSAT_HASHLIB_ALGO = 'sha512'
 ``` 
 
 * Add `django_salted_api_tokens` to installed apps along with `rest_framework`.  
