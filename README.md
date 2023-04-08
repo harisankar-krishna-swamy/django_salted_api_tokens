@@ -83,3 +83,8 @@ See example_django_project in source
 
 # 5. License
 Apache2 License
+
+# 6. See also
+DSAT provides a basic protection of tokens Vs clear tokens. Read Python docs at  
+https://docs.python.org/3/library/hashlib.html
+
