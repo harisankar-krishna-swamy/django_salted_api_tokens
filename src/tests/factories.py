@@ -13,6 +13,7 @@ user_model = get_user_model()
 test_password = gen_token(n_chars=12)
 test_token_id = f'{ksuid()}'
 test_token = gen_token()
+test_hashlib_algo = 'sha512'
 
 
 @factory.django.mute_signals(post_save)
@@ -45,5 +46,5 @@ class ApiTokenFactory(DjangoModelFactory):
 
     user = factory.SubFactory(SuperUserFactory)
     token_id = test_token_id
-    token = lazy_attribute(lambda k: hashed_secret(test_token))
+    token = lazy_attribute(lambda k: hashed_secret(test_token, test_hashlib_algo))
     revoked = False

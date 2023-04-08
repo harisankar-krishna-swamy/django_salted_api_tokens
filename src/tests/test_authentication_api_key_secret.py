@@ -4,7 +4,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.test import APIRequestFactory
 
 from django_salted_api_tokens.authentication import TokenAuthentication
-from django_salted_api_tokens.settings import X_API_TOKEN_HEADER_NAME
+from django_salted_api_tokens.settings import DSAT_X_API_TOKEN_HEADER_NAME
 from tests.factories import ApiTokenFactory, ApiTokenUserFactory, test_token
 
 
@@ -14,7 +14,7 @@ class TestTokenAuthentication(TestCase):
         self.user = ApiTokenUserFactory()
         self.token = ApiTokenFactory(user=self.user)
         self.auth = TokenAuthentication()
-        self.token_header = f'HTTP_{X_API_TOKEN_HEADER_NAME}'
+        self.token_header = f'HTTP_{DSAT_X_API_TOKEN_HEADER_NAME}'
 
     data__test_api_token_parsing__invalid_content = (
         # invalid values for authorization header content
