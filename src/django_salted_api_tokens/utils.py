@@ -41,7 +41,7 @@ def verify_hashed_secret(secret, encoded):
     return encoded == hashed
 
 
-def create_token_for_user(user):
+def create_dsat_token_for_user(user):
     n_user_tokens = ApiToken.objects.filter(user=user).count()
     if n_user_tokens >= DSAT_MAX_TOKENS_PER_USER:
         raise ValidationError('Maximum tokens limit reached for user')
