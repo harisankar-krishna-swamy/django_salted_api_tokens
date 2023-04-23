@@ -81,6 +81,11 @@ curl -H "Authorization: token 10bac501884e35723d7f28a63ddf845c656bd857 9ec12fad5
 
 See example_django_project in source
 
+## 4.2 create_dsat_for_user management command
+
+```bash
+python manage.py create_dsat_for_user username
+```
 # 5. License
 Apache2 License
 
