@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from rest_framework.exceptions import ValidationError
 from rest_framework.test import APIClient
 
@@ -31,22 +31,20 @@ class TestViewCreateApiToken(TestCase):
         response = client.post(path=ep, data=data)
         self._assert_http_ok_token_reponse(response)
 
-    @override_settings(DSAT_MAX_TOKENS_PER_USER=2)
     def test_view__max_tokens_per_user(self):
         from django.conf import settings
 
-        for i in range(1, settings.DSAT_MAX_TOKENS_PER_USER + 1):
+        for i in range(0, settings.DSAT_MAX_TOKENS_PER_USER + 1):
             client = APIClient(enforce_csrf_checks=True)
             ep = self.url_dsat
             data = {'username': self.user.username, 'password': test_password}
-            if i <= settings.DSAT_MAX_TOKENS_PER_USER:
+            if i < settings.DSAT_MAX_TOKENS_PER_USER:
                 response = client.post(path=ep, data=data)
                 self._assert_http_ok_token_reponse(response)
             else:
-                with self.assertRaises(ValidationError):
-                    response = client.post(path=ep, data=data)
-                    self.assertEqual(
-                        HTTPStatus.BAD_REQUEST,
-                        response.status_code,
-                        'Validation error must be raised on reaching DSAT_MAX_TOKENS_PER_USER',
-                    )
+                response = client.post(path=ep, data=data)
+                self.assertEqual(
+                    HTTPStatus.BAD_REQUEST,
+                    response.status_code,
+                    'Validation error must be raised on reaching DSAT_MAX_TOKENS_PER_USER',
+                )
