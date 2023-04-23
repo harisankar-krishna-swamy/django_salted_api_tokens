@@ -17,9 +17,9 @@ https://github.com/harisankar-krishna-swamy/django_salted_api_tokens
   Subsequent requests for tokens will be rejected.  
   Default: `10`
 * Add `DSAT_HASHLIB_ALGO` in `settings.py`. A string representing the hash algorithm from hashlib.  
-  Supported values are 'sha512', 'sha256', 'sha384'
+  Supported values are 'sha512', 'sha256', 'sha384' 
   Default: `sha512`
-* 
+
 Example
 ```python
 DSAT_TOKEN_LENGTH = 80
